@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
 
 const FormularioPredicciones = ({ onEnviarPredicciones }) => {
@@ -6,11 +6,10 @@ const FormularioPredicciones = ({ onEnviarPredicciones }) => {
   const [predicciones, setPredicciones] = useState([]);
 
   useEffect(() => {
-    // Simulación de estudiantes
-    const estudiantesSimulados = [
-      { id: 1, nombre: 'Felipe Maierowicz' },
-      { id: 2, nombre: 'Uriel Gandelman' },
-      { id: 3, nombre: 'Alejandro Kretzig' }
+    const estudiantesSimulados = [ // placeholder
+      { id: 1, nombre: 'Felipe Maierowicz' }, //placeholder
+      { id: 2, nombre: 'Uriel Gandelman' }, //placeholder
+      { id: 3, nombre: 'Alejandro Kretzig' } //placeholder
     ];
 
     setEstudiantes(estudiantesSimulados);
@@ -26,8 +25,12 @@ const FormularioPredicciones = ({ onEnviarPredicciones }) => {
 
   const manejarEnvio = (e) => {
     e.preventDefault();
-    localStorage.setItem('predicciones', JSON.stringify(predicciones)); // PLACEHOLDER
-    onEnviarPredicciones(predicciones);
+    const prediccionesConNombres = predicciones.map(pred => {
+      const estudiante = estudiantes.find(est => est.id === pred.id);
+      return { ...pred, nombre: estudiante.nombre };
+    });
+    localStorage.setItem('predicciones', JSON.stringify(prediccionesConNombres));
+    onEnviarPredicciones(prediccionesConNombres);
   };
 
   return (

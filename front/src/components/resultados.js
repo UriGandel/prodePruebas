@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from 'react';
 
 const Resultados = ({ predicciones }) => {
@@ -6,17 +6,17 @@ const Resultados = ({ predicciones }) => {
   const [precision, setPrecision] = useState(0);
 
   useEffect(() => {
-    //Placeholder
-    const notas = [     //Placeholder
-      { id: 1, nota: 8.5 },     //Placeholder
-      { id: 2, nota: 9.0 },     //Placeholder
-      { id: 3, nota: 7.0 }     //Placeholder
+    // Placeholder
+    const notas = [
+      { id: 1, nota: 8.5 },
+      { id: 2, nota: 9.0 },
+      { id: 3, nota: 7.0 }
     ];
     setNotasReales(notas);
 
     const total = predicciones.length;
     const correctos = predicciones.filter((pred) => {
-      const notaReal = notasSimuladas.find(nota => nota.id === pred.id)?.nota;
+      const notaReal = notas.find(nota => nota.id === pred.id)?.nota;
       return notaReal && Math.round(pred.nota) === Math.round(notaReal);
     }).length;
 
@@ -41,7 +41,7 @@ const Resultados = ({ predicciones }) => {
             const notaReal = notasReales.find(nota => nota.id === prediccion.id)?.nota;
             return (
               <tr key={prediccion.id}>
-                <td>{`Estudiante ${prediccion.id}`}</td>
+                <td>{prediccion.nombre}</td>
                 <td>{prediccion.nota}</td>
                 <td>{notaReal}</td>
                 <td>

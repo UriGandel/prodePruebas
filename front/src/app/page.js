@@ -10,7 +10,7 @@ export default function Home() {
 
   const manejarEnvioPredicciones = (datos) => {
     setPredicciones(datos);
-    router.push('/resultados');
+    router.push('/top');
   };
 
   return (
