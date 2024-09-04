@@ -1,10 +1,15 @@
 "use client"
 import "./styles.css";
+import syncDatabase from '../lib/sync';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import FormularioPredicciones from '../components/PrediccionForm';
 import { useRouter } from 'next/navigation'; 
 
 export default function Home() {
+  useEffect(() => {
+    syncDatabase();
+  }, []);
   const [predicciones, setPredicciones] = useState([]);
   const router = useRouter();
 
