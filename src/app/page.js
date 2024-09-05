@@ -1,6 +1,5 @@
 "use client"
 import "./styles.css";
-import syncDatabase from '../lib/sync';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import FormularioPredicciones from '../components/PrediccionForm';

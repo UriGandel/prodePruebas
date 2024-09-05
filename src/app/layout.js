@@ -1,9 +1,8 @@
-'use client'
-
-import React, { useState, useEffect } from 'react';
+"use client"
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Login from '../components/Login';
-import Register from '../components/Register';
+import Login from '@/components/Login';
+import Register from '@/components/Register';
 
 export default function RootLayout({ children }) {
   const [token, setToken] = useState(null);

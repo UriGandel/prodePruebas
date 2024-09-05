@@ -1,6 +1,7 @@
 "use server";
 const { DataTypes } = require('sequelize');
-const sequelize = require('../lib/sequelize');
+const Users = require('@/models/Users');
+const sequelize = require('@/lib/sequelize');
 
 const Guesses = sequelize.define('Guesses', {   
     idGuesser: {
@@ -18,7 +19,11 @@ const Guesses = sequelize.define('Guesses', {
             model: "Users",
             key: "id"
         }
-    }
+    },
+    Guess: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
 });
 
 export default Guesses;

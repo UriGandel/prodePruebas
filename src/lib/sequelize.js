@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, SequelizeScopeError } = require('sequelize');
 
 const sequelize = new Sequelize('prodeDB', 'root', 'root', {
   host: 'localhost',
@@ -6,6 +6,7 @@ const sequelize = new Sequelize('prodeDB', 'root', 'root', {
   dialectModule: require('mysql2'),
 });
 const Users = require('@/models/Users');
-sequelize.models.Users = Users;
+
+
 
 module.exports = sequelize;

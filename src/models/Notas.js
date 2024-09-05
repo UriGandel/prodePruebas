@@ -1,7 +1,6 @@
 "use server";
-
+import sequelize from '@/lib/sequelize';
 import { DataTypes } from 'sequelize';
-import sequelize from '../lib/sequelize';
 
 const Notas = sequelize.define("Notas", {
     idUser: {

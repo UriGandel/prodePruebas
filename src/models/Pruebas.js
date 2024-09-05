@@ -1,7 +1,7 @@
 "use server";
 
 import { DataTypes } from 'sequelize';
-import sequelize from '../lib/sequelize';
+import sequelize from '@/lib/sequelize';
 
 const Pruebas = sequelize.define('Pruebas', {
     id: {

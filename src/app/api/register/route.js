@@ -1,25 +1,23 @@
 import Users from '@/models/Users';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 var jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
 
 export async function POST(request) {
     try {
         const { username, password } = await request.json();
         
-        await Users.create({ username , password });
+        await Users.create({ username, password });
 
         const token = jwt.sign({ username }, "patata123", { expiresIn: '1h' });
 
-        const response = NextResponse.json({ token, success: true }); // Add success property to the response
+        const response = NextResponse.json({ token, success: true });
         response.cookies.set('token', token, { httpOnly: true });
     
-        if (response.ok) {
-            return response;
-        } else {
-            throw new Error('Response not OK');
-        }
+        return response;
     } catch (error) {
         console.error(error);
-        return NextResponse(500).json({ error: 'Internal server error' });
+        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 }

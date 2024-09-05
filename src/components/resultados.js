@@ -6,23 +6,35 @@ const Resultados = ({ predicciones }) => {
   const [precision, setPrecision] = useState(0);
 
   useEffect(() => {
-    // Placeholder
-    const notas = [
-      { id: 1, nota: 8.5 },
-      { id: 2, nota: 9.0 },
-      { id: 3, nota: 7.0 }
-    ];
-    setNotasReales(notas);
+    const fetchNotasReales = async () => {
+      try {
+        const response = await fetch('/api/notas-reales');
+        if (response.ok) {
+          const data = await response.json();
+          setNotasReales(data.notas);
+        } else {
+          console.error('Error fetching notas reales');
+        }
+      } catch (error) {
+        console.error('Error fetching notas reales:', error);
+      }
+    };
 
-    const total = predicciones.length;
-    const correctos = predicciones.filter((pred) => {
-      const notaReal = notas.find(nota => nota.id === pred.id)?.nota;
-      return notaReal && Math.round(pred.nota) === Math.round(notaReal);
-    }).length;
+    fetchNotasReales();
+  }, []);
 
-    const precisionCalculada = ((correctos / total) * 100).toFixed(2);
-    setPrecision(precisionCalculada);
-  }, [predicciones]);
+  useEffect(() => {
+    if (notasReales.length > 0) {
+      const total = predicciones.length;
+      const correctos = predicciones.filter((pred) => {
+        const notaReal = notasReales.find(nota => nota.id === pred.id)?.nota;
+        return notaReal && Math.round(pred.nota) === Math.round(notaReal);
+      }).length;
+
+      const precisionCalculada = ((correctos / total) * 100).toFixed(2);
+      setPrecision(precisionCalculada);
+    }
+  }, [predicciones, notasReales]);
 
   return (
     <div className="container mt-5">

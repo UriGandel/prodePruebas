@@ -9,7 +9,7 @@ const Login = ({ onLogin }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://localhost.com:3000/api/login', {
+      const response = await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -18,9 +18,8 @@ const Login = ({ onLogin }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        const token = data.token;
-        localStorage.setItem('token', token);
-        onLogin(token);
+        localStorage.setItem('token', data.token);
+        onLogin(data.token);
       } else {
         throw new Error('Invalid credentials');
       }
