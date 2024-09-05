@@ -1,21 +1,27 @@
 "use client";
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const Register = ({ onRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
+
+
+
   const handleRegister = async (e) => {
     e.preventDefault();
     const response = await fetch('/api/register', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password, email }),
+      body: JSON.stringify({ username, password }),
     });
+    console.log(username, password, email);
+
 
     if (response.ok) {
       const data = await response.json();

@@ -1,28 +1,25 @@
-"use server";
-import { NextResponse } from 'next/server';
-import Users from '../../../models/Users';
-const dotenv = require('dotenv');
+import Users from '@/models/Users';
+import { NextRequest, NextResponse } from 'next/server';
 var jwt = require('jsonwebtoken');
-dotenv.config();
 
 export async function POST(request) {
-  const { username, password } = await request.json();
+    try {
+        const { username, password } = await request.json();
+        
+        await Users.create({ username , password });
 
-  const user = await Users.findOne({ where: { username, password } });
+        const token = jwt.sign({ username }, "patata123", { expiresIn: '1h' });
 
-  if (user) {
-    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    const response = NextResponse.json({ token });
-    response.cookies.set('token', token, { httpOnly: true });
-
-    return response;
-  } 
-  else {
-    return NextResponse.json({ error: 'Credenciales incorrectas' }, { status: 401 });
-  }
-}
-
-export async function GET(request) {
-  return new Response.json({ error: 'Método no permitido' }, { status: 405 });
+        const response = NextResponse.json({ token, success: true }); // Add success property to the response
+        response.cookies.set('token', token, { httpOnly: true });
+    
+        if (response.ok) {
+            return response;
+        } else {
+            throw new Error('Response not OK');
+        }
+    } catch (error) {
+        console.error(error);
+        return NextResponse(500).json({ error: 'Internal server error' });
+    }
 }

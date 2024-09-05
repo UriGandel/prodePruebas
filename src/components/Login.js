@@ -6,14 +6,27 @@ const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
-    if (username === 'admin' && password === 'password') {  //placeholder
-      const token = 'fake-jwt-token'; //placeholder
-      localStorage.setItem('token', token); ///placeholder
-      onLogin(token); //placeholder
-    } else { //placeholder
-      alert('Credenciales incorrectas'); //placeholder
-    } 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('https://localhost.com:3000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const token = data.token;
+        localStorage.setItem('token', token);
+        onLogin(token);
+      } else {
+        throw new Error('Invalid credentials');
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
