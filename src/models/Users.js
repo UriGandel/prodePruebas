@@ -1,6 +1,5 @@
-"use server";
-import { DataTypes } from 'sequelize';
-import sequelize from '../lib/sequelize';
+const sequelize = require('@/lib/sequelize');
+const { DataTypes } = require('sequelize');
 
 const Users = sequelize.define('Users', {   
     username: {
@@ -8,7 +7,7 @@ const Users = sequelize.define('Users', {
         allowNull: false,
     },
     id: {
-        type: DataTypemmms.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,

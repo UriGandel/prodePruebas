@@ -7,7 +7,6 @@ const Login = ({ onLogin }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = (e) => {
-    e.preventDefault();
     if (username === 'admin' && password === 'password') {  //placeholder
       const token = 'fake-jwt-token'; //placeholder
       localStorage.setItem('token', token); ///placeholder
@@ -15,7 +14,7 @@ const Login = ({ onLogin }) => {
     } else { //placeholder
       alert('Credenciales incorrectas'); //placeholder
     } 
-  }; 
+  };
 
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
@@ -29,6 +28,7 @@ const Login = ({ onLogin }) => {
               className="form-control"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required={true}
             />
           </div>
           <div className="form-group mb-3">
@@ -38,6 +38,7 @@ const Login = ({ onLogin }) => {
               className="form-control"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required={true}
             />
           </div>
           <button type="submit" className="btn btn-primary w-100">Ingresar</button>

@@ -1,6 +1,6 @@
 "use server";
-import { DataTypes } from 'sequelize';
-import sequelize from '../lib/sequelize';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../lib/sequelize');
 
 const Guesses = sequelize.define('Guesses', {   
     idGuesser: {

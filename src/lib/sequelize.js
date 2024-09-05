@@ -1,9 +1,11 @@
-"use server";
-import { Sequelize} from 'sequelize';
+const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('database', 'username', 'password', {
+const sequelize = new Sequelize('database', 'root', 'root', {
   host: 'localhost',
   dialect: 'mysql',
+  dialectModule: require('mysql2'),
 });
+const Users = require('@/models/Users');
+sequelize.models.Users = Users;
 
-export default sequelize;
+module.exports = sequelize;

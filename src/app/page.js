@@ -7,9 +7,6 @@ import FormularioPredicciones from '../components/PrediccionForm';
 import { useRouter } from 'next/navigation'; 
 
 export default function Home() {
-  useEffect(() => {
-    syncDatabase();
-  }, []);
   const [predicciones, setPredicciones] = useState([]);
   const router = useRouter();
 

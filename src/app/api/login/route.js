@@ -1,7 +1,9 @@
 "use server";
 import { NextResponse } from 'next/server';
-import Users from '../../../models/Users';
-const dotenv = require('dotenv');
+import Users from '@/models/Users';
+import { Sequelize} from 'sequelize';
+const dotenv = require('dotenv'); 
+
 var jwt = require('jsonwebtoken');
 dotenv.config();
 
@@ -24,5 +26,5 @@ export async function POST(request) {
 }
 
 export async function GET(request) {
-  return new Response.json({ error: 'Método no permitido' }, { status: 405 });
+  return NextResponse.json({ error: 'Método no permitido' }, { status: 405 });
 }
