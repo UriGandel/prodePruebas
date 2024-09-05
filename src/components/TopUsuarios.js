@@ -2,8 +2,11 @@
 import { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Resultados from '@/components/Resultados';
+import { DataTypes } from 'sequelize';
 
 const TopUsuarios = () => {
+  
+  
   const [topUsuarios, setTopUsuarios] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
