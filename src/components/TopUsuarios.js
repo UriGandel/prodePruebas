@@ -2,6 +2,10 @@
 import { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Resultados from '@/components/Resultados';
+<<<<<<< HEAD
+=======
+
+>>>>>>> a5665fe20446b86b03b4f04b54c9de22f2e96644
 
 const TopUsuarios = () => {
   const [topUsuarios, setTopUsuarios] = useState([]);

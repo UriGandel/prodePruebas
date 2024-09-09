@@ -3,10 +3,15 @@ import { NextResponse } from 'next/server';
 const dotenv = require('dotenv');
 import  syncDatabase  from '@/lib/sync';
 dotenv.config();
+syncDatabase();
+
 var jwt = require('jsonwebtoken');
 
 export async function POST(request) {
+<<<<<<< HEAD
   await syncDatabase();
+=======
+>>>>>>> a5665fe20446b86b03b4f04b54c9de22f2e96644
 
   const { username, password } = await request.json();
 

@@ -1,11 +1,14 @@
 import Users from '@/models/Users';
 import { NextResponse } from 'next/server';
 var jwt = require('jsonwebtoken');
+import syncDatabase from '@/lib/sync';
 const dotenv = require('dotenv');
 dotenv.config();
 
 export async function POST(request) {
     try {
+    syncDatabase();
+
         const { username, password } = await request.json();
         
         await Users.create({ username, password });
