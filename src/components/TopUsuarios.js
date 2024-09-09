@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Resultados from '@/components/Resultados';
-import { DataTypes } from 'sequelize';
+
 
 const TopUsuarios = () => {
   

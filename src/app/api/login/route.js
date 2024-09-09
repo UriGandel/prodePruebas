@@ -1,10 +1,14 @@
 import Users from '@/models/Users';
 import { NextResponse } from 'next/server';
 const dotenv = require('dotenv');
+import  syncDatabase  from '@/lib/sync';
 dotenv.config();
+syncDatabase();
+
 var jwt = require('jsonwebtoken');
 
 export async function POST(request) {
+
   const { username, password } = await request.json();
 
   const user = await Users.findOne({ where: { username, password } });

@@ -1,3 +1,4 @@
+"use server";
 const { Sequelize, SequelizeScopeError } = require('sequelize');
 
 const sequelize = new Sequelize('prodeDB', 'root', 'root', {
