@@ -2,23 +2,28 @@
 import { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Resultados from '@/components/Resultados';
-import { DataTypes } from 'sequelize';
 
 const TopUsuarios = () => {
-  
-  
   const [topUsuarios, setTopUsuarios] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // Placeholder: Datos simulados
-    const usuariosSimulados = [
-      { id: 1, nombre: 'Felipe Maierowicz', precision: 95 },
-      { id: 2, nombre: 'Uriel Gandelman', precision: 90 },
-      { id: 3, nombre: 'Alejandro Kretzig', precision: 85 }
-    ];
-    setTopUsuarios(usuariosSimulados);
+    const fetchTopUsuarios = async () => {
+      try {
+        const response = await fetch('/api/topUsuarios');
+        if (response.ok) {
+          const data = await response.json();
+          setTopUsuarios(data.usuarios);
+        } else {
+          console.error('Error fetching top usuarios');
+        }
+      } catch (error) {
+        console.error('Error fetching top usuarios:', error);
+      }
+    };
+
+    fetchTopUsuarios();
   }, []);
 
   const handleShowRespuestas = (usuario) => {
@@ -31,11 +36,25 @@ const TopUsuarios = () => {
     setSelectedUser(null);
   };
 
-  const prediccionesSimuladas = [
-    { id: 1, nombre: 'Felipe Maierowicz', nota: 8.5 },
-    { id: 2, nombre: 'Uriel Gandelman', nota: 9.0 },
-    { id: 3, nombre: 'Alejandro Kretzig', nota: 7.0 }
-  ];
+  const handleSaveUsuarios = async () => {
+    try {
+      const response = await fetch('/api/topUsuarios', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ usuarios: topUsuarios }),
+      });
+
+      if (response.ok) {
+        console.log('Usuarios guardados exitosamente');
+      } else {
+        console.error('Error guardando usuarios');
+      }
+    } catch (error) {
+      console.error('Error guardando usuarios:', error);
+    }
+  };
 
   return (
     <div className="container mt-5">
@@ -63,12 +82,16 @@ const TopUsuarios = () => {
         </tbody>
       </table>
 
+      <Button variant="primary" onClick={handleSaveUsuarios}>
+        Guardar Usuarios
+      </Button>
+
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Respuestas de {selectedUser?.nombre}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Resultados predicciones={prediccionesSimuladas} />
+          <Resultados predicciones={selectedUser?.predicciones || []} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>

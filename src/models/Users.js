@@ -1,24 +1,26 @@
-const sequelize = require('@/lib/sequelize');
-const { DataTypes } = require('sequelize');
+"use server";
+import { DataTypes } from 'sequelize';
+import sequelize from '@/lib/sequelize';
 
-const Users = sequelize.define('Users', {   
-    username: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }}, 
-    {
-        timestamps: false
-    }
-);
+const Users = sequelize.define('Users', {
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  precision: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+  },
+});
 
 export default Users;
