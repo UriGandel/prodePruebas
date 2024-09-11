@@ -1,17 +1,15 @@
 import { NextResponse } from 'next/server';
-import Guesses from '@/models/Guesses'; // Asegúrate de tener un modelo Predicciones
-import sequelize from '@/lib/sequelize';
+import Predicciones from '@/models/Predicciones';
 
-
-export async function GET() {
+export async function POST(request) {
   try {
-    await sequelize.sync();
-    const predicciones = await Guesses.findAll(); // Obtén las predicciones desde la base de datos
-    return NextResponse.json({ predicciones });
-    
-    
+    const { datos, precision } = await request.json();
+    for (const prediccion of datos) {
+      await Predicciones.create({ ...prediccion, precision });
+    }
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error fetching predicciones:', error);
+    console.error('Error saving predicciones:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

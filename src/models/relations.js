@@ -3,6 +3,7 @@ import Users from './Users';
 import Guesses from './Guesses';
 import Pruebas from './Pruebas';
 import Notas from './Notas';
+import Predicciones from './Predicciones';
 
 // Relación entre Users y Guesses
 Users.hasMany(Guesses, { foreignKey: 'idGuesser' });
@@ -18,4 +19,7 @@ Notas.belongsTo(Users, { foreignKey: 'idStudent' });
 Pruebas.hasMany(Notas, { foreignKey: 'idPrueba' });
 Notas.belongsTo(Pruebas, { foreignKey: 'idPrueba' });
 
-export { Users, Guesses, Pruebas, Notas };
+Users.hasMany(Predicciones, { foreignKey: 'idUser' });
+Predicciones.belongsTo(Users, { foreignKey: 'idUser' });
+
+export { Users, Guesses, Pruebas, Notas, Predicciones };

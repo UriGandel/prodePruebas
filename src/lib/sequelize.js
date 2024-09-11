@@ -1,13 +1,8 @@
-"use server";
-const { Sequelize, SequelizeScopeError } = require('sequelize');
 
+const Sequelize  = require('sequelize');
 const sequelize = new Sequelize('prodeDB', 'root', 'root', {
   host: 'localhost',
-  dialect: 'mysql',
-  dialectModule: require('mysql2'),
+  dialect: 'mysql', // o 'postgres', 'sqlite', 'mariadb', 'mssql'
 });
-const Users = require('@/models/Users');
-
-
 
 module.exports = sequelize;

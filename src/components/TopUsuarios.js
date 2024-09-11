@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Resultados from '@/components/Resultados';
 
-
 const TopUsuarios = () => {
   const [topUsuarios, setTopUsuarios] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -71,7 +70,7 @@ const TopUsuarios = () => {
         <tbody>
           {topUsuarios.map((usuario) => (
             <tr key={usuario.id}>
-              <td>{usuario.nombre}</td>
+              <td>{usuario.username}</td>
               <td>{usuario.precision}%</td>
               <td>
                 <Button variant="info" onClick={() => handleShowRespuestas(usuario)}>
@@ -89,10 +88,10 @@ const TopUsuarios = () => {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Respuestas de {selectedUser?.nombre}</Modal.Title>
+          <Modal.Title>Respuestas de {selectedUser?.username}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Resultados predicciones={selectedUser?.predicciones || []} />
+          <Resultados predicciones={selectedUser?.Predicciones || []} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
